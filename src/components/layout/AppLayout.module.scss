@@ -1,0 +1,85 @@
+@use '../../styles/variables' as *;
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 100vh;
+  background: $color-background;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px 20px;
+  background: $color-surface;
+  border-right: 1px solid $color-border;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-text;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navLink {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: $color-muted;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.navLink:hover {
+  background: $color-background;
+  color: $color-text;
+}
+
+.navLinkActive {
+  background: $color-primary-soft;
+  color: $color-primary;
+}
+
+.contentArea {
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 32px;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+  color: $color-muted;
+  font-weight: 600;
+}
+
+.main {
+  padding: 32px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
