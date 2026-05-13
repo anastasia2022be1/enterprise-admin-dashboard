@@ -56,12 +56,39 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 24px;
   min-height: 64px;
   padding: 0 32px;
   background: $color-surface;
   border-bottom: 1px solid $color-border;
   color: $color-muted;
   font-weight: 600;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logoutButton {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background: $color-surface;
+  color: $color-text;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.logoutButton:hover {
+  border-color: $color-primary;
+  color: $color-primary;
 }
 
 .main {
@@ -81,5 +108,11 @@
   .navigation {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px 20px;
   }
 }
