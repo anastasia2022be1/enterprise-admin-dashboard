@@ -4,7 +4,7 @@ Enterprise Admin Dashboard is a portfolio React SPA that demonstrates a clean fr
 
 ## Live Demo
 
-[View deployed project](https://enterprise-admin-dashboard-2jhjf4clt.vercel.app/dashboard)
+[View deployed project](https://enterprise-admin-dashboard.vercel.app/dashboard)
 
 Demo credentials:
 
