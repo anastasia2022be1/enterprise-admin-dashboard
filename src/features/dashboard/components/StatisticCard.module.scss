@@ -1,0 +1,31 @@
+@use '../../../styles/variables' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 118px;
+  padding: 18px;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background: $color-surface;
+}
+
+.card span {
+  color: $color-muted;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.card strong {
+  color: $color-text;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.card p {
+  margin: 0;
+  color: $color-muted;
+  font-size: 14px;
+  line-height: 1.5;
+}
