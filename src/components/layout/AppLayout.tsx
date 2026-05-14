@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { clearPersistedAuthState, logout } from '../../features/auth/authSlice';
+import { logout } from '../../features/auth/authSlice';
 import styles from './AppLayout.module.scss';
 
 const navigationItems = [
@@ -14,7 +14,6 @@ export const AppLayout = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const handleLogout = () => {
-    clearPersistedAuthState();
     dispatch(logout());
   };
 

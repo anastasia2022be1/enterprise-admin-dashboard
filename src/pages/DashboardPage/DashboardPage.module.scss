@@ -12,6 +12,26 @@
   gap: 18px;
 }
 
+.status,
+.error {
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.status {
+  border: 1px solid $color-border;
+  background: $color-surface;
+  color: $color-muted;
+}
+
+.error {
+  border: 1px solid #fecdca;
+  background: #fff3f1;
+  color: #b42318;
+}
+
 .contentGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;

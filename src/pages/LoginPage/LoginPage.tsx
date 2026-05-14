@@ -2,12 +2,7 @@ import { FormEvent, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  createDemoToken,
-  demoUserName,
-  loginSuccess,
-  persistAuthState,
-} from '../../features/auth/authSlice';
+import { clearAuthError, demoCredentials, login } from '../../features/auth/authSlice';
 import styles from './LoginPage.module.scss';
 
 type LoginLocationState = {
@@ -16,19 +11,13 @@ type LoginLocationState = {
   };
 };
 
-const demoCredentials = {
-  email: 'admin@example.com',
-  password: 'password',
-};
-
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const token = useAppSelector((state) => state.auth.token);
+  const { error, isLoading, token } = useAppSelector((state) => state.auth);
   const [email, setEmail] = useState(demoCredentials.email);
   const [password, setPassword] = useState(demoCredentials.password);
-  const [error, setError] = useState('');
   const locationState = location.state as LoginLocationState | null;
   const redirectTo = locationState?.from?.pathname ?? '/dashboard';
 
@@ -36,26 +25,14 @@ export const LoginPage = () => {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError('');
 
-    if (email !== demoCredentials.email || password !== demoCredentials.password) {
-      setError('Use demo credentials to sign in.');
-      return;
+    const result = await dispatch(login({ email, password }));
+
+    if (login.fulfilled.match(result)) {
+      navigate(redirectTo, { replace: true });
     }
-
-    const token = createDemoToken(email);
-
-    dispatch(loginSuccess({ email, token }));
-    persistAuthState({
-      token,
-      user: {
-        email,
-        name: demoUserName,
-      },
-    });
-    navigate(redirectTo, { replace: true });
   };
 
   return (
@@ -74,7 +51,11 @@ export const LoginPage = () => {
               type="email"
               value={email}
               autoComplete="email"
-              onChange={(event) => setEmail(event.target.value)}
+              disabled={isLoading}
+              onChange={(event) => {
+                dispatch(clearAuthError());
+                setEmail(event.target.value);
+              }}
             />
           </label>
 
@@ -84,14 +65,18 @@ export const LoginPage = () => {
               type="password"
               value={password}
               autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
+              disabled={isLoading}
+              onChange={(event) => {
+                dispatch(clearAuthError());
+                setPassword(event.target.value);
+              }}
             />
           </label>
 
           {error ? <p className={styles.error}>{error}</p> : null}
 
-          <button type="submit" className={styles.submitButton}>
-            Sign in
+          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+            {isLoading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
